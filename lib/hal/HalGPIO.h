@@ -5,16 +5,16 @@
 #include <InputManager.h>
 
 // Display SPI pins (custom pins for XteinkX4, not hardware SPI defaults)
-#define EPD_SCLK 8   // SPI Clock
-#define EPD_MOSI 10  // SPI MOSI (Master Out Slave In)
-#define EPD_CS 21    // Chip Select
-#define EPD_DC 4     // Data/Command
-#define EPD_RST 5    // Reset
-#define EPD_BUSY 6   // Busy
+#define EPD_SCLK 4   // SPI Clock
+#define EPD_MOSI 6  // SPI MOSI (Master Out Slave In)
+#define EPD_CS 7    // Chip Select
+#define EPD_DC 3     // Data/Command
+#define EPD_RST 1   // Reset
+#define EPD_BUSY 10   // Busy
 
-#define SPI_MISO 7  // SPI MISO, shared between SD card and display (Master In Slave Out)
+#define SPI_MISO 5  // SPI MISO, shared between SD card and display (Master In Slave Out)
 
-#define BAT_GPIO0 0  // Battery voltage
+#define BAT_GPIO0 -1  // Battery voltage
 
 #define UART0_RXD 20  // Used for USB connection detection
 
@@ -47,9 +47,8 @@ class HalGPIO {
   // Check if USB is connected
   bool isUsbConnected() const;
 
-  enum class WakeupReason { PowerButton, AfterFlash, AfterUSBPower, Other };
-
-  WakeupReason getWakeupReason() const;
+  // Check if wakeup was caused by power button press
+  bool isWakeupByPowerButton() const;
 
   // Button indices
   static constexpr uint8_t BTN_BACK = 0;
